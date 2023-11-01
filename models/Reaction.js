@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const dateFormat = require('../utils/helpers');
-const reactionSchema = require('./Reaction');
 
-const thoughtSchema = new mongoose.Schema({
-    text: {
+const reactionSchema = new mongoose.Schema({
+    reactionId: {
+        type: mongoose.Schema.Types.ObjectId,
+        default: () => new mongoose.Types.ObjectId()
+    },
+    reactionBody: {
         type: String,
-        minLength: 1,
         maxLength: 280,
         required: true,
     },
@@ -18,20 +20,14 @@ const thoughtSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    reactions: [
-        reactionSchema,
-    ]
 
-    
-}, {
+    }, {
     toJSON: {
         getters: true,
     },
     id: false,
+    _id: false,
 });
 
-thoughtSchema.virtual('numReactions').get(function () {
-    return this.reactions.length;
-});
 
-module.exports = mongoose.model('thought', thoughtSchema);
+module.exports = reactionSchema;
