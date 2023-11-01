@@ -34,4 +34,4 @@ thoughtSchema.virtual('numReactions').get(function () {
     return this.reactions.length;
 });
 
-module.exports = mongoose.model('thought', thoughtSchema);
+module.exports = mongoose.model('Thought', thoughtSchema);
